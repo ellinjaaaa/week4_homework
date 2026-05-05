@@ -48,11 +48,11 @@ def add_contact(list_of_contacts):
         return False
 
     for c in list_of_contacts:
-        if c["Tel."] == phone:
+        if c["phone"] == phone:
             print("Šāds tālruņa nr. jau pastāv.")
             return False
     
-    list_of_contacts.append({"Vārds":name, "Tel.":phone})
+    list_of_contacts.append({"name":name, "phone":phone})
 
     print(f"Kontakts '{name}' ir pievienots.")
 
@@ -67,7 +67,7 @@ def list_contacts(list_of_contacts):
         return False
 
     for a, b in enumerate(list_of_contacts):
-        print(f"{a+1}. {b['Vārds']} - {b['Tel.']}")
+        print(f"{a+1}. {b['name']} - {b['phone']}")
 
     return True
 
@@ -81,8 +81,8 @@ def search_contact(list_of_contacts):
     found=False
     
     for a, b in enumerate(list_of_contacts):
-        if b['Vārds']==find:
-            print(f"{a+1}. {b['Vārds']} - {b['Tel.']}")
+        if b['name'] == find:
+            print(f"{a+1}. {b['name']} - {b['phone']}")
             found=True
     
     if not found:

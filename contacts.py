@@ -27,3 +27,32 @@ def save_contacts(contacts):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
                                         
+def add_contact(list_contacts):
+    '''
+    Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm,
+    pastāv dublikāts tālr. nr.
+    '''
+    name=input("Ievadiet kontakta vārdu: ").strip() #.strip() noņem atstarpes sākumā un beigās, bet ne pa vidu
+    phone=input("Ievadiet tālruņa nr.: ").strip()
+
+    if not name or not phone:
+        print("Nevar būt tukša ievade.")
+        return False
+    
+    if len(phone)<8:
+        print("Nederīgs tālruņa nr.")
+        return False
+
+    for c in list_contacts:
+        if c["Tel."] == phone:
+            print("Šāds tālruņa nr. jau pastāv.")
+            return False
+    
+    list_contacts.append({"Vārds":name, "Tel.":phone})
+
+    print(f"Kontakts '{name}' ir pievienots.")
+
+    return True
+
+#def list_contacts():
+#def search_contact():

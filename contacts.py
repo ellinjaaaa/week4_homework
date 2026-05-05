@@ -29,8 +29,8 @@ def save_contacts(contacts):
                                         
 def add_contact(list_contacts):
     '''
-    Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm,
-    pastāv dublikāts tālr. nr.
+    Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm, tālr. nr.
+    nesastāv no cipariem vai, ja sākas ar +, tad turpmāk jāsastāv no cipariem, pastāv dublikāts tālr. nr.
     '''
     name=input("Ievadiet kontakta vārdu: ").strip() #.strip() noņem atstarpes sākumā un beigās, bet ne pa vidu
     phone=input("Ievadiet tālruņa nr.: ").strip()
@@ -40,7 +40,11 @@ def add_contact(list_contacts):
         return False
     
     if len(phone)<8:
-        print("Nederīgs tālruņa nr.")
+        print("Tālruņa nr. jābūt vismaz 8 rakstzīmes garam.")
+        return False
+    
+    if not (phone.isdigit() or (phone.startswith("+") and phone[1:].isdigit())): #Tālr. nr. jāsastāv nk cipariem - ja tomēr
+        print("Tālruņa nr. jasastāv no cipariem.") #uzrakstīts arī valsts kods, spēj apstrādāt situāciju, ka sākas ar +, savukārt, pēc tam cipari.
         return False
 
     for c in list_contacts:

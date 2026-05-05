@@ -70,3 +70,20 @@ def list_contacts(list_of_contacts):
         print(f"{a+1}. {b['Vārds']} - {b['Tel.']}")
 
     return True
+
+def search_contact(list_of_contacts):
+    '''
+    Atrod kontaktu pēc vārda. Ja atrod - sanumurē, pieraksta vārdu un tālr. nr.
+    Citādāk - tāda kontakta nav.
+    '''
+    find=input("Ievadiet kontakta vārdu, ko meklējat: ")
+
+    found=False
+    
+    for a, b in enumerate(list_of_contacts):
+        if b['Vārds']==find:
+            print(f"{a+1}. {b['Vārds']} - {b['Tel.']}")
+            found=True
+    
+    if not found:
+        return ("Tāda kontakta nav.")

@@ -27,7 +27,7 @@ def save_contacts(contacts):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
                                         
-def add_contact(list_contacts):
+def add_contact(list_of_contacts):
     '''
     Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm, tālr. nr.
     nesastāv no cipariem vai, ja sākas ar +, tad turpmāk jāsastāv no cipariem, pastāv dublikāts tālr. nr.
@@ -47,16 +47,26 @@ def add_contact(list_contacts):
         print("Tālruņa nr. jasastāv no cipariem.") #uzrakstīts arī valsts kods, spēj apstrādāt situāciju, ka sākas ar +, savukārt, pēc tam cipari.
         return False
 
-    for c in list_contacts:
+    for c in list_of_contacts:
         if c["Tel."] == phone:
             print("Šāds tālruņa nr. jau pastāv.")
             return False
     
-    list_contacts.append({"Vārds":name, "Tel.":phone})
+    list_of_contacts.append({"Vārds":name, "Tel.":phone})
 
     print(f"Kontakts '{name}' ir pievienots.")
 
     return True
 
-#def list_contacts():
-#def search_contact():
+def list_contacts(list_of_contacts):
+    '''
+    Atgriež sanumurētu sarakstu ar vārdu un tālr. nr. Citādāk - nav kontaktu.
+    '''
+    if not list_of_contacts:
+        print("Nav kontaktu.")
+        return False
+
+    for a, b in enumerate(list_of_contacts):
+        print(f"{a+1}. {b['Vārds']} - {b['Tel.']}")
+
+    return True

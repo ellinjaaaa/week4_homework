@@ -27,7 +27,7 @@ def save_contacts(contacts):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
                                         
-def add_contact(list_of_contacts):
+def add_contact(contacts):
     '''
     Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm, tālr. nr.
     nesastāv no cipariem vai, ja sākas ar +, tad turpmāk jāsastāv no cipariem, pastāv dublikāts tālr. nr.
@@ -47,43 +47,41 @@ def add_contact(list_of_contacts):
         print("Tālruņa nr. jasastāv no cipariem.") #uzrakstīts arī valsts kods, spēj apstrādāt situāciju, ka sākas ar +, savukārt, pēc tam cipari.
         return False
 
-    for c in list_of_contacts:
+    for c in contacts:
         if c["phone"] == phone:
             print("Šāds tālruņa nr. jau pastāv.")
             return False
     
-    list_of_contacts.append({"name":name, "phone":phone})
+    contacts.append({"name":name, "phone":phone})
 
     print(f"Kontakts '{name}' ir pievienots.")
 
     return True
 
-def list_contacts(list_of_contacts):
+def list_contacts(contacts):
     '''
     Atgriež sanumurētu sarakstu ar vārdu un tālr. nr. Citādāk - nav kontaktu.
     '''
-    if not list_of_contacts:
+    if not contacts:
         print("Nav kontaktu.")
         return False
 
-    for a, b in enumerate(list_of_contacts):
+    for a, b in enumerate(contacts):
         print(f"{a+1}. {b['name']} - {b['phone']}")
 
     return True
 
-def search_contact(list_of_contacts):
+def search_contact(contacts, find):
     '''
     Atrod kontaktu pēc vārda. Ja atrod - sanumurē, pieraksta vārdu un tālr. nr.
     Citādāk - tāda kontakta nav.
     '''
-    find=input("Ievadiet kontakta vārdu, ko meklējat: ")
-
-    found=False
+    results=0
     
-    for a, b in enumerate(list_of_contacts):
-        if b['name'] == find:
+    for a, b in enumerate(contacts):
+        if find.lower() in b['name'].lower():
             print(f"{a+1}. {b['name']} - {b['phone']}")
-            found=True
+            results+=1
     
-    if not found:
-        return ("Tāda kontakta nav.")
+    if results==0:
+        print ("Tāda kontakta nav.")

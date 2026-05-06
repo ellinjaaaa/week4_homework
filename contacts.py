@@ -43,9 +43,13 @@ def add_contact(contacts, name, phone):
         print("Tālruņa nr. jābūt vismaz 8 rakstzīmes garam.")
         return False
     
-    if not (phone.isdigit() or (phone.startswith("+") and phone[1:].isdigit())): #Tālr. nr. jāsastāv nk cipariem - ja tomēr
+    norm_phone=phone.replace(" ","") #Atstarpes neskaitītos kā cipari un numurs netiktu ieskaitīts kā derīgs.
+
+    if not (norm_phone.isdigit() or (norm_phone.startswith("+") and norm_phone[1:].isdigit())): #Tālr. nr. jāsastāv nk cipariem - ja tomēr
         print("Tālruņa nr. jasastāv no cipariem.") #uzrakstīts arī valsts kods, spēj apstrādāt situāciju, ka sākas ar +, savukārt, pēc tam cipari.
         return False
+    
+    phone=norm_phone
 
     for c in contacts:
         if c["phone"] == phone:
@@ -80,16 +84,18 @@ def search_contact(contacts, find):
     
     for c in contacts:
         if find.lower() in c['name'].lower():
-            results.append()
+            results.append(c)
         
     if not results:
         print ("Tāda kontakta nav.")
-        return
+        return False
     
     print(f"Atrasti {len(results)} kontakti:")
 
     for a, c in enumerate(results):
         print(f"{a+1}. {c['name']} - {c['phone']}")
+
+    return True
 
 def main():
     '''
@@ -113,7 +119,7 @@ def main():
             save_contacts(contacts)
 
     elif cmd=="list":
-        print("Konatkti:")
+        print("Kontakti:")
         list_contacts(contacts)
 
     elif cmd=="search":
@@ -125,3 +131,6 @@ def main():
 
     else:
         print("Nezināma komanda.")
+
+if __name__=="__main__":
+    main()

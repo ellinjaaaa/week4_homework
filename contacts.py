@@ -29,7 +29,7 @@ def save_contacts(contacts):
                                         
 def add_contact(contacts, name, phone):
     '''
-    Pievieno jaunu kontaktu ar input(). Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm, tālr. nr.
+    Pievieno jaunu kontaktu. Apstrādā kļūdas: tukšums vārda/tel. vietā, tel.nr. īsāks par 8 rakstzīmēm, tālr. nr.
     nesastāv no cipariem vai, ja sākas ar +, tad turpmāk jāsastāv no cipariem, pastāv dublikāts tālr. nr.
     '''
     name=name.strip() #Nav atstarpju sākumā vai beigās, taču pa vidu paliek.
@@ -73,15 +73,55 @@ def list_contacts(contacts):
 
 def search_contact(contacts, find):
     '''
-    Atrod kontaktu pēc vārda. Ja atrod - sanumurē, pieraksta vārdu un tālr. nr.
-    Citādāk - tāda kontakta nav.
+    Atrod kontaktu pēc vārda/noteiktas vārda daļās. Ja atrod - pasaka, cik daudz rezultātu atrasts, sanumurē, 
+    pieraksta vārdu un tālr. nr. Citādāk - tāda kontakta nav.
     '''
-    results=0
+    results=[]
     
-    for a, b in enumerate(contacts):
-        if find.lower() in b['name'].lower():
-            print(f"{a+1}. {b['name']} - {b['phone']}")
-            results+=1
-    
-    if results==0:
+    for c in contacts:
+        if find.lower() in c['name'].lower():
+            results.append()
+        
+    if not results:
         print ("Tāda kontakta nav.")
+        return
+    
+    print(f"Atrasti {len(results)} kontakti:")
+
+    for a, c in enumerate(results):
+        print(f"{a+1}. {c['name']} - {c['phone']}")
+
+def main():
+    '''
+    Apvieno visas iepriekš uzrakstītās komandas vienā funkcijā. Ar sys.argv palīdzību lietotājs ievada nepieciešamo komandu izpildei ar
+    nepiciešamajām vērtībām. Ja neatpazīst komandu, izvadē: "Nezināma komanda".
+    '''
+    contacts=load_contacts()
+
+    if len(sys.argv)<2:
+        print("Komandas: add (pievienot), list (saraksts), search (meklēt)")
+        return
+    
+    cmd=sys.argv[1]
+
+    if cmd=="add":
+        if len(sys.argv)<4:
+            print("Add komanda: add \"Vārds\" \"Telefons\"") #\, lai varētu izmantot tādas pašas pēdiņas iekšpusē.
+            return
+        
+        if add_contact(contacts, sys.argv[2], sys.argv[3]): #If, jo funkcijā return True/False - saglabās, tikai ja True.
+            save_contacts(contacts)
+
+    elif cmd=="list":
+        print("Konatkti:")
+        list_contacts(contacts)
+
+    elif cmd=="search":
+        if len(sys.argv)<3:
+            print("Search komanda: search \"Vārds\"")
+            return
+        
+        search_contact(contacts, sys.argv[2])
+
+    else:
+        print("Nezināma komanda.")

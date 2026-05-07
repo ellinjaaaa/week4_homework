@@ -65,4 +65,18 @@ def list_shopping(products):
     for a, product in enumerate(products):
         print(f"{a+1}. {product['name']} - {product['price']:.2f}")
 
-    return True
+    return True'
+
+def total_shopping(products):
+    '''
+    Ar summu tiek sasummētas produktu cenas ar for cikla palīdzību. Rezultāts noapaļots - 2 cipari aiz komata.
+    Ja nav produktu, tiek izvadīts ziņojums par to.
+    '''
+    if not products:
+        print("Nav produktu.")
+        return False
+
+    total=sum(p['price'] for p in products) #izmantota summēšana ar for ciklu vienā rindā
+
+    return round(total, 2)
+

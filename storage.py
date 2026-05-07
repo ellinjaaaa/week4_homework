@@ -65,7 +65,7 @@ def list_shopping(products):
     for a, product in enumerate(products):
         print(f"{a+1}. {product['name']} - {product['price']:.2f}")
 
-    return True'
+    return True
 
 def total_shopping(products):
     '''
@@ -80,3 +80,15 @@ def total_shopping(products):
 
     return round(total, 2)
 
+def clear_shopping(products):
+    '''
+    Notīra produktu sarakstu.
+    '''
+    if not products:
+        print("Nav produktu.")
+        return False
+    
+    products.clear()
+    print("Saraksts notīrīts.")
+
+    return True

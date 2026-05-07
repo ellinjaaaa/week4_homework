@@ -1,5 +1,4 @@
-import json
-import sys
+import json #import sys būs vajadzīgs shop.py, tā kā tur būs CLI.
 import os
 
 shopping_file="shopping.json"
@@ -52,5 +51,18 @@ def add_shopping(products, name, price):
     products.append({"name":name, "price":price})
 
     print(f"Pievienots: {name} ({price:.2f})") #Atstāj 2 ciparus aiz komata jebkurai cenai (parādoties tekstam, nevis json failā).
+
+    return True
+
+def list_shopping(products):
+    '''
+    Atgriež sanumurētu sarakstu ar produktiem un cenām. Citādāk - nav produktu.
+    '''
+    if not products:
+        print("Nav produktu.")
+        return False
+
+    for a, product in enumerate(products):
+        print(f"{a+1}. {product['name']} - {product['price']:.2f}")
 
     return True

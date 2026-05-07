@@ -27,3 +27,30 @@ def save_shopping(products):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
 
+def add_shopping(products, name, price):
+    '''
+    Pievieno jaunu produktu, izmantojot products sarakstu. Ja neparādās kļūdas - tukšums vārda/cenas vietā, cena nav skaitlis 
+    vai tā ir negatīva -, produkts tiek pievienots sarakstam, kopā ar cenu, vārdnīcas formā. 
+    '''
+    name=name.strip() #Nav atstarpju sākumā vai beigās, taču pa vidu paliek.
+    price=price.strip()
+
+    if not name or not price: #Lai nav tukšu vērtību.
+        print("Nevar būt tukša ievade.")
+        return False
+    
+    try:
+        price=float(price) #Cenai jābūt skaitlim.
+    except ValueError:
+        print("Cenai jābūt skaitlim.")
+        return False
+    
+    if price<=0: #Cenai jābūt pozitīvai.
+        print("Cena nevar būt negatīva.")
+        return False
+    
+    products.append({"name":name, "price":price})
+
+    print(f"Pievienots: {name} ({price:.2f})") #Atstāj 2 ciparus aiz komata jebkurai cenai (parādoties tekstam, nevis json failā).
+
+    return True

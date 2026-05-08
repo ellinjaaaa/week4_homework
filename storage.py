@@ -3,6 +3,8 @@ import os
 
 shopping_file="shopping.json"
 
+prices_file="prices.json"
+
 def load_shopping():
     '''
     Nolasa produktus no JSON faila, pārveidojot Python failā. Ja fails neeksistē vai bojāts, atgriež tukšu sarakstu.
@@ -14,6 +16,18 @@ def load_shopping():
             return json.load(f)
     except (json.JSONDecodeError, OSError): #Ja fails bojāts kādā veidā, tiek atgriezts tukšs saraksts.
         return []
+
+def load_prices():
+    '''
+    Nolasa cenas no JSON faila, pārveidojot Python failā. Ja fails neeksistē vai bojāts, atgriež tukšu sarakstu.
+    '''
+    if not os.path.exists(prices_file):
+        return []
+    try:
+        with open(prices_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError): #Ja fails bojāts kādā veidā, tiek atgriezts tukšs saraksts.
+        return []
     
 def save_shopping(products):
     '''
@@ -21,6 +35,17 @@ def save_shopping(products):
     '''
     try:
         with open(shopping_file, "w", encoding="utf-8") as f:
+            json.dump(products, f, indent=2, ensure_ascii=False)
+    except OSError as e:
+        print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
+    #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
+
+def save_prices(products):
+    '''
+    Saglabā cenu sarakstu; Python -> JSON. Ja kļūda - paziņojums ar kļūdu.
+    '''
+    try:
+        with open(prices_file, "w", encoding="utf-8") as f:
             json.dump(products, f, indent=2, ensure_ascii=False)
     except OSError as e:
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
@@ -106,3 +131,23 @@ def clear_shopping(products):
     print("Saraksts notīrīts.")
 
     return True
+
+def get_price(products, find):
+    '''
+    Atrod cenu pēc produkta vārda. Citādāk - tāda produkta nav.
+    '''
+    if not products:
+        print("Nav produktu.")
+        return False
+
+    if not find:
+        print("Cena nav zināma.")
+        return False
+
+    for p in products:
+        if find.lower()==p['name'].lower():
+            print(f"Atrasts/a: {p['price']} EUR")
+            return True
+
+    print("Tāda produkta nav.")
+    return False

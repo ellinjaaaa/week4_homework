@@ -71,7 +71,7 @@ def list_shopping(products):
         return False
 
     for a, product in enumerate(products):
-        print(f"{a+1}. {product['name']} - {product['price']:.2f}")
+        print(f"{a+1}. {product['name']} x {product['qty']} - {product['price']:.2f} EUR/gab. - {(product['qty']*product['price']):.2f} EUR")
 
     return True
 

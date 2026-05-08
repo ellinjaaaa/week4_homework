@@ -26,31 +26,39 @@ def save_shopping(products):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
 
-def add_shopping(products, name, price):
+def add_shopping(products, name, qty, price):
     '''
     Pievieno jaunu produktu, izmantojot products sarakstu. Ja neparādās kļūdas - tukšums vārda/cenas vietā, cena nav skaitlis 
     vai tā ir negatīva -, produkts tiek pievienots sarakstam, kopā ar cenu, vārdnīcas formā. 
     '''
     name=name.strip() #Nav atstarpju sākumā vai beigās, taču pa vidu paliek.
     price=price.strip()
+    qty=qty.strip()
 
-    if not name or not price: #Lai nav tukšu vērtību.
+    if not name or not qty or not price: #Lai nav tukšu vērtību.
         print("Nevar būt tukša ievade.")
         return False
     
     try:
+        qty=int(qty)
         price=float(price) #Cenai jābūt skaitlim.
     except ValueError:
-        print("Cenai jābūt skaitlim.")
+        print("Daudzumam un/vai cenai jābūt skaitlim.")
         return False
     
     if price<=0: #Cenai jābūt pozitīvai.
         print("Cena nevar būt negatīva.")
         return False
     
-    products.append({"name":name, "price":price})
+    if qty<=0: #Daudzumam jābūt pozitīvam.
+        print("Daudzums nevar būt negatīvs.")
+        return False
+    
+    products.append({"name":name, "qty":qty, "price":price})
 
-    print(f"Pievienots: {name} ({price:.2f})") #Atstāj 2 ciparus aiz komata jebkurai cenai (parādoties tekstam, nevis json failā).
+    total_for_same=qty*price
+
+    print(f"Pievienots: {name} x {qty} ({price:.2f} EUR/gab.) = {total_for_same:.2f} EUR") #Atstāj 2 ciparus aiz komata jebkurai cenai (parādoties tekstam, nevis json failā).
 
     return True
 

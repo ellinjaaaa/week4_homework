@@ -16,11 +16,11 @@ def shop():
     cmd=sys.argv[1]
 
     if cmd=="add":
-        if len(sys.argv)<4:
-            print("Add komanda: add \"Produkts\" Cena") #\, lai varētu izmantot tādas pašas pēdiņas iekšpusē.
+        if len(sys.argv)<5:
+            print("Add komanda: add \"Produkts\" Daudzums Cena") #\, lai varētu izmantot tādas pašas pēdiņas iekšpusē.
             return
         
-        if add_shopping(products, sys.argv[2], sys.argv[3]): #If, jo funkcijā return True/False - saglabās, tikai ja True.
+        if add_shopping(products, sys.argv[2], sys.argv[3], sys.argv[4]): #If, jo funkcijā return True/False - saglabās, tikai ja True.
             save_shopping(products)
 
     elif cmd=="list":

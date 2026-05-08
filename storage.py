@@ -78,7 +78,11 @@ def total_shopping(products):
 
     total=sum(p['price'] for p in products) #izmantota summēšana ar for ciklu vienā rindā
 
-    return round(total, 2)
+    tog=len(products)
+
+    print(f"Kopā: {total:.2f} ({tog} produkti)")
+
+    return True
 
 def clear_shopping(products):
     '''

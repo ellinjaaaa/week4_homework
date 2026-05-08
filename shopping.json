@@ -1,37 +1,27 @@
 [
   {
     "name": "Maize",
-    "price": 1.49
-  },
-  {
-    "name": "Piens",
-    "price": 1.59
-  },
-  {
-    "name": "Olas",
-    "price": 1.8
-  },
-  {
-    "name": "Maize",
-    "price": 1.6
-  },
-  {
-    "name": "Makaroni",
-    "price": 2.39
-  },
-  {
-    "name": "Maize",
     "qty": 3,
     "price": 1.26
   },
   {
     "name": "Piens",
-    "qty": 4,
+    "qty": 2,
     "price": 1.49
+  },
+  {
+    "name": "Olas",
+    "qty": 2,
+    "price": 2.89
   },
   {
     "name": "Gāzēts ūdens",
     "qty": 6,
     "price": 0.89
+  },
+  {
+    "name": "Desa",
+    "qty": 1,
+    "price": 1.2
   }
 ]

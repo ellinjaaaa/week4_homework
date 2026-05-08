@@ -29,6 +29,12 @@ def shop():
 
     elif cmd=="total":
         total_shopping(products)
+
+    elif cmd=="clear":
+        clear_shopping(products)
         
     else:
         print("Nezināma komanda.")
+
+if __name__=="__main__":
+    shop()

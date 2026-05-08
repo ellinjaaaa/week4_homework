@@ -23,4 +23,12 @@ def shop():
         if add_shopping(products, sys.argv[2], sys.argv[3]): #If, jo funkcijā return True/False - saglabās, tikai ja True.
             save_shopping(products)
 
-    
+    elif cmd=="list":
+        print("Produkti:")
+        list_shopping(products)
+
+    elif cmd=="total":
+        total_shopping(products)
+        
+    else:
+        print("Nezināma komanda.")

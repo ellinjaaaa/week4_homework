@@ -18,5 +18,20 @@
   {
     "name": "Makaroni",
     "price": 2.39
+  },
+  {
+    "name": "Maize",
+    "qty": 3,
+    "price": 1.26
+  },
+  {
+    "name": "Piens",
+    "qty": 4,
+    "price": 1.49
+  },
+  {
+    "name": "Gāzēts ūdens",
+    "qty": 6,
+    "price": 0.89
   }
 ]

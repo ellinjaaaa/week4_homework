@@ -84,13 +84,13 @@ def total_shopping(products):
         print("Nav produktu.")
         return False
 
-    total=sum(p['price'] for p in products) #izmantota summēšana ar for ciklu vienā rindā
+    total=sum((p['price']*p['qty']) for p in products) #izmantota summēšana ar for ciklu vienā rindā
 
     all=sum(p['qty'] for p in products)
 
     tog=len(products)
 
-    print(f"Kopā: {total:.2f} ({all} vienības, {tog} produkti)")
+    print(f"Kopā: {total:.2f} EUR ({all} vienības, {tog} produkti)")
 
     return True
 

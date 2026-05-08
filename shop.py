@@ -32,7 +32,8 @@ def shop():
 
     elif cmd=="clear":
         clear_shopping(products)
-        
+        save_shopping(products)
+
     else:
         print("Nezināma komanda.")
 

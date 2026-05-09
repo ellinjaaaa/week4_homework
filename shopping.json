@@ -23,5 +23,50 @@
     "name": "Desa",
     "qty": 1,
     "price": 1.2
+  },
+  {
+    "name": "Maize",
+    "qty": 5,
+    "price": 1.25
+  },
+  {
+    "name": "Maize",
+    "qty": 4,
+    "price": 1.25
+  },
+  {
+    "name": "Maize",
+    "qty": 3.0,
+    "price": 1.25
+  },
+  {
+    "name": "Maize",
+    "qty": 3,
+    "price": 1.25
+  },
+  {
+    "name": "Maize",
+    "qty": 5,
+    "price": 1.78
+  },
+  {
+    "name": "Sviests",
+    "qty": 2,
+    "price": 2.35
+  },
+  {
+    "name": "Gāzēts ūdens",
+    "qty": 6,
+    "price": 0.79
+  },
+  {
+    "name": "Maize",
+    "qty": 2,
+    "price": 1.78
+  },
+  {
+    "name": "Piens",
+    "qty": 3,
+    "price": 1.49
   }
 ]

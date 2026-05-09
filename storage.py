@@ -40,13 +40,13 @@ def save_shopping(products):
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
 
-def save_prices(products):
+def save_prices(prices):
     '''
     Saglabā cenu sarakstu; Python -> JSON. Ja kļūda - paziņojums ar kļūdu.
     '''
     try:
         with open(prices_file, "w", encoding="utf-8") as f:
-            json.dump(products, f, indent=2, ensure_ascii=False)
+            json.dump(prices, f, indent=2, ensure_ascii=False)
     except OSError as e:
         print(f"Nevar saglabāt failu: {e}.") #Paglābj no programmas crashošanas vai citām kļūdām, 
     #pie reizes norādot kļūdu (kas saglabāta, kā mainīgais e).
@@ -132,7 +132,7 @@ def clear_shopping(products):
 
     return True
 
-def get_price(products, find):
+def get_price(products, name):
     '''
     Atrod cenu pēc produkta vārda. Citādāk - tāda produkta nav.
     '''
@@ -140,14 +140,48 @@ def get_price(products, find):
         print("Nav produktu.")
         return False
 
-    if not find:
+    if not name:
         print("Cena nav zināma.")
-        return False
+        return
 
     for p in products:
-        if find.lower()==p['name'].lower():
+        if name.lower()==p['name'].lower():
             print(f"Atrasts/a: {p['price']} EUR")
             return True
 
     print("Tāda produkta nav.")
+    return False
+
+def set_price(name, qty, price):
+    '''
+    Apstiprina vai maina produkta cenu.
+    '''
+    text=input("[A]kceptēt / [M]ainīt?")
+
+    if not text:
+        print("Lūdzu, izvēlies [A]kceptēt / [M]ainīt?")
+        return False
+
+    if text.lower()=="a":
+        print(f"Pievienots: {name} x {qty} ({price} EUR/gab.) = {qty*price} EUR")
+        return True
+
+    if text.lower()== "m":
+        try:
+            new_price=float(input("Jaunā cena: "))
+        
+        except ValueError:
+            print("Nepareizi ievadīta cena.")
+            return False
+        
+        if new_price<=0:
+            print("Cenai jābūt pozitīvai.")
+            return False
+
+        print(f"Cena autjaunināta: {name} - {new_price} EUR")
+        print(f"Pievienots: {name} x {qty} ({new_price} EUR/gab.) = {qty*new_price} EUR")
+
+        return True
+    
+    print("Nesaprotama izvēle.")
     return False

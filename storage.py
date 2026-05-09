@@ -22,12 +22,12 @@ def load_prices():
     Nolasa cenas no JSON faila, pārveidojot Python failā. Ja fails neeksistē vai bojāts, atgriež tukšu sarakstu.
     '''
     if not os.path.exists(prices_file):
-        return []
+        return {} #Lai prices būtu vārdnīca, kurā meklēt pēc atslēgas.
     try:
         with open(prices_file, "r", encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, OSError): #Ja fails bojāts kādā veidā, tiek atgriezts tukšs saraksts.
-        return []
+        return {}
     
 def save_shopping(products):
     '''
@@ -57,8 +57,6 @@ def add_shopping(products, name, qty, price):
     vai tā ir negatīva -, produkts tiek pievienots sarakstam, kopā ar cenu, vārdnīcas formā. 
     '''
     name=name.strip() #Nav atstarpju sākumā vai beigās, taču pa vidu paliek.
-    price=price.strip()
-    qty=qty.strip()
 
     if not name or not qty or not price: #Lai nav tukšu vērtību.
         print("Nevar būt tukša ievade.")
@@ -132,56 +130,17 @@ def clear_shopping(products):
 
     return True
 
-def get_price(products, name):
+def get_price(name):
     '''
     Atrod cenu pēc produkta vārda. Citādāk - tāda produkta nav.
     '''
-    if not products:
-        print("Nav produktu.")
-        return False
+    prices=load_prices()
+    return prices.get(name) #Prices.json = vārdnīca; meklē pēc noteiktās atslēgas.
 
-    if not name:
-        print("Cena nav zināma.")
-        return
-
-    for p in products:
-        if name.lower()==p['name'].lower():
-            print(f"Atrasts/a: {p['price']} EUR")
-            return True
-
-    print("Tāda produkta nav.")
-    return False
-
-def set_price(name, qty, price):
+def set_price(name, price):
     '''
     Apstiprina vai maina produkta cenu.
     '''
-    text=input("[A]kceptēt / [M]ainīt?")
-
-    if not text:
-        print("Lūdzu, izvēlies [A]kceptēt / [M]ainīt?")
-        return False
-
-    if text.lower()=="a":
-        print(f"Pievienots: {name} x {qty} ({price} EUR/gab.) = {qty*price} EUR")
-        return True
-
-    if text.lower()== "m":
-        try:
-            new_price=float(input("Jaunā cena: "))
-        
-        except ValueError:
-            print("Nepareizi ievadīta cena.")
-            return False
-        
-        if new_price<=0:
-            print("Cenai jābūt pozitīvai.")
-            return False
-
-        print(f"Cena autjaunināta: {name} - {new_price} EUR")
-        print(f"Pievienots: {name} x {qty} ({new_price} EUR/gab.) = {qty*new_price} EUR")
-
-        return True
-    
-    print("Nesaprotama izvēle.")
-    return False
+    prices=load_prices()
+    prices[name]=price #Pievieno jaunu produktu vai arī atjaunina jau esošo.
+    save_prices(prices)
